@@ -31,25 +31,30 @@ Plug 'vim-airline/vim-airline'
 " Theme
 Plug 'morhetz/gruvbox'
 
+"My Config
+
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 colorscheme gruvbox
-set noerrorbells                                              " Don't add sounds for errors
-set number
+
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
 set nowrap
-set nohlsearch
 set smartcase
 set noswapfile
 set nobackup
-set undodir=~/AppData/Local/nvim-data/backup
+set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set tabstop=2
-set softtabstop=0 noexpandtab
-set shiftwidth=2
-set colorcolumn=120
-set clipboard=unnamedplus
-set backspace=indent,eol,start
+
+set relativenumber
+
+set colorcolumn=80
+
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 let mapleader=" "
@@ -66,7 +71,8 @@ map <leader>j :wincmd j <CR>
 map <leader>k :wincmd k <CR>
 map <leader>l :wincmd l <CR>
 
-nnoremap <C-b> :NERDTreeToggle<CR>
+nnoremap <leader>pt :NERDTreeToggle<CR>
+nnoremap <silent> <leader>pv :NERDTreeFind<CR>
 " nnoremap <C-S-b> :NERDTreeFind<CR>
 
 let g:dart_format_on_save = 1
@@ -74,14 +80,15 @@ let g:dartfmt_options = ['--fix', '--line-length 120']
 
 " Coc
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -146,3 +153,48 @@ let g:NERDTreeGitStatusWithFlags = 1
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 " == AUTOCMD END ================================
+"
+"
+
+
+
+
+" source: ThePrimeagen - Must have vim remaps
+
+" Keeping centered on find
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" Undo break point
+inoremap , ,<c-g>v
+inoremap . .<c-g>v
+inoremap ! !<c-g>v
+inoremap ? ?<c-g>v
+
+" Move text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>k :m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+
+" My config
+
+"nmap <silent> <C-c> <Plug>(coc-cursors-position)
+"nmap <silent> <C-d> <Plug>(coc-cursors-word)
+"xmap <silent> <C-d> <Plug>(coc-cursors-range)
+"" use normal command like `<leader>xi(`
+"nmap <leader>x  <Plug>(coc-cursors-operator)
+"
+
+"nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+"xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+"
+
+"Enable scrollabe mouse
+set mouse=a
+set scrolloff=3
+
+
